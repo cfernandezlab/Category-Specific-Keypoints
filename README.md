@@ -24,7 +24,11 @@ Automatic discovery of category-specific 3D keypoints from a collection of objec
 
 
 ## Datasets
-We use the file ``data/create_datasets.py`` to prepare the input data. We refer to the official websites to download the different datasets:
+We use the file ``data/create_datasets.py`` to prepare the input data.
+You can access to our data [here](https://drive.google.com/drive/folders/1cydRB1IyY0AimAaZvLyYcRpY0zWk3WTq?usp=sharing). (More coming soon)
+Check Data folder structure section.
+
+We also refer to the official websites to download the original datasets:
 
 - [ShapeNet](https://shapenet.cs.stanford.edu/iccv17/)
 - [ModelNet10](https://modelnet.cs.princeton.edu/) *
@@ -32,9 +36,8 @@ We use the file ``data/create_datasets.py`` to prepare the input data. We refer 
 - [Basel Face Model](https://faces.dmi.unibas.ch/bfm/index.php?nav=1-0&id=basel_face_model)
 - [SUNRGB-D](http://rgbd.cs.princeton.edu/challenge.html)
 
-*For ModelNet we use the data prepared by [USIP](https://drive.google.com/drive/folders/1e3m4jZxtJmBbtPoL2nIYVGPN9G4-p8fg) (modelnet40-normal_numpy)
 
-## Rquirements
+## Requirements
 
 ``environment.yml`` contains a copy of the virtual environment with all the dependences and packages needed.
 In order to reproduce it, simply run: 
@@ -76,7 +79,7 @@ To visualize the results use ``viz.py``
 ## Evaluate pretrained models
 
 You can try out directly some of our pretrained models.
-The checkpoints can be found [here](https://drive.google.com/drive/folders/1cydRB1IyY0AimAaZvLyYcRpY0zWk3WTq?usp=sharing). Check next section (Data folder structure) to see where to locate them.
+The checkpoints can be found [here](https://drive.google.com/drive/folders/1cydRB1IyY0AimAaZvLyYcRpY0zWk3WTq?usp=sharing). Check Data folder structure section.
 
 ```bash
 python test.py --dataset 'ModelNet10' --category 'chair' --ckpt_model 'chair_10b' --node_num 14 --node_knn_k_1 3 --basis_num 10
