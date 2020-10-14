@@ -98,7 +98,7 @@ def get_category_specific_keypoints(c, basis, n_pl, angles, symtype="shape", mis
 
 
 def loss_category_specific_kpts(self, kpts, nodes, pc):
-    chf_loss, _, _ = self.chamfer_criteria(kpts, pc)
+    chf_loss, _, _ = self.chamfer_criteria(kpts, nodes)
     cov_loss = self.coverage_criteria(nodes, pc)
     inc_loss = self.inclusivity_criteria(nodes, pc)
 

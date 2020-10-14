@@ -25,13 +25,12 @@ Automatic discovery of category-specific 3D keypoints from a collection of objec
 
 ## Datasets
 We use the file ``data/create_datasets.py`` to prepare the input data.
-You can access to our data [here](https://drive.google.com/drive/folders/1cydRB1IyY0AimAaZvLyYcRpY0zWk3WTq?usp=sharing). (More coming soon)
-Check Data folder structure section.
+You can access to our data [here](https://drive.google.com/drive/folders/1cydRB1IyY0AimAaZvLyYcRpY0zWk3WTq?usp=sharing).
 
 We also refer to the official websites to download the original datasets:
 
 - [ShapeNet](https://shapenet.cs.stanford.edu/iccv17/)
-- [ModelNet10](https://modelnet.cs.princeton.edu/) *
+- [ModelNet10](https://modelnet.cs.princeton.edu/) 
 - [Dynamic FAUST](http://dfaust.is.tue.mpg.de/)
 - [Basel Face Model](https://faces.dmi.unibas.ch/bfm/index.php?nav=1-0&id=basel_face_model)
 - [SUNRGB-D](http://rgbd.cs.princeton.edu/challenge.html)
@@ -79,7 +78,7 @@ To visualize the results use ``viz.py``
 ## Evaluate pretrained models
 
 You can try out directly some of our pretrained models.
-The checkpoints can be found [here](https://drive.google.com/drive/folders/1cydRB1IyY0AimAaZvLyYcRpY0zWk3WTq?usp=sharing). Check Data folder structure section.
+The checkpoints can be found [here](https://drive.google.com/drive/folders/1cydRB1IyY0AimAaZvLyYcRpY0zWk3WTq?usp=sharing). 
 
 ```bash
 python test.py --dataset 'ModelNet10' --category 'chair' --ckpt_model 'chair_10b' --node_num 14 --node_knn_k_1 3 --basis_num 10
