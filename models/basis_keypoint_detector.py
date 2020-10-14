@@ -50,7 +50,7 @@ def get_reflection_operator(n_pl):
     return refl_mat
 
 
-def get_category_specific_keypoints(c, basis, n_pl, angles, angle_n_pl, symtype="shape", misalign = False):
+def get_category_specific_keypoints(c, basis, n_pl, angles, symtype="shape", misalign = False): # angle_n_pl
     """The category-specific symmetric 3D keypoints are computed with the deformation function.
 
     Arguments:
@@ -89,9 +89,9 @@ def get_category_specific_keypoints(c, basis, n_pl, angles, angle_n_pl, symtype=
     kpts = torch.cat((kpts_half, kpts_half_reflected), 2)
 
     if misalign == True:
-        R_n_pl = euler2mat(angle_n_pl)
+        #R_n_pl = euler2mat(angle_n_pl)
+        #kpts = torch.matmul(R_n_pl, kpts)
         R = euler2mat(angles)
-        kpts = torch.matmul(R_n_pl, kpts)
         kpts = torch.matmul(R, kpts)
 
     return kpts 
@@ -173,18 +173,14 @@ class ModelDetector():
 
             self.detector.zero_grad()
 
-            if 'R_n_pl' not in [name for name, params in self.detector.state_dict().items()]:
-                self.detector.R_n_pl = torch.nn.Parameter((torch.rand(1)-0.5).cuda())
-
             self.kpts = get_category_specific_keypoints(
                 self.coefs,
                 self.detector.basis,
                 self.detector.n_pl,
                 self.rot,
-                self.detector.R_n_pl,
                 "shape",
                 self.opt.misalign,
-            )
+            ) # self.detector.R_n_pl,
 
             self.loss = loss_category_specific_kpts(self, self.kpts, self.nodes, self.pc)
 
@@ -200,18 +196,14 @@ class ModelDetector():
 
         self.detector.zero_grad()
 
-        if 'R_n_pl' not in [name for name, params in self.detector.state_dict().items()]:
-            self.detector.R_n_pl = torch.nn.Parameter((torch.rand(1)-0.5).cuda())
-
         self.kpts = get_category_specific_keypoints(
             self.coefs,
             self.detector.basis,
             self.detector.n_pl,
             self.rot,
-            self.detector.R_n_pl,
             "shape",
             self.opt.misalign,
-        )
+        ) # self.detector.R_n_pl,
 
         self.loss = loss_category_specific_kpts(self, self.kpts, self.nodes, self.pc)
 
