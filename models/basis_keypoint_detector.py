@@ -173,6 +173,9 @@ class ModelDetector():
 
             self.detector.zero_grad()
 
+            if 'R_n_pl' not in [name for name, params in self.detector.state_dict().items()]:
+                self.detector.R_n_pl = torch.nn.Parameter((torch.rand(1)-0.5).cuda())
+
             self.kpts = get_category_specific_keypoints(
                 self.coefs,
                 self.detector.basis,
@@ -196,6 +199,9 @@ class ModelDetector():
         self.nodes, self.coefs, self.rot = self.forward(self.pc, self.sn, self.node, is_train=False)
 
         self.detector.zero_grad()
+
+        if 'R_n_pl' not in [name for name, params in self.detector.state_dict().items()]:
+            self.detector.R_n_pl = torch.nn.Parameter((torch.rand(1)-0.5).cuda())
 
         self.kpts = get_category_specific_keypoints(
             self.coefs,

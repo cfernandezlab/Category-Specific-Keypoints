@@ -6,7 +6,7 @@ import torch
 import sys
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(BASE_DIR,'../data'))
-from augmentation import transform_pc_pytorch
+from helper import transform_pc_pytorch
 from pathlib import Path
 import glob
 
