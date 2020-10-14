@@ -1,12 +1,6 @@
 import argparse
 import os
-import sys
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT_DIR = os.path.dirname(BASE_DIR)
-sys.path.append(os.path.join(ROOT_DIR, 'util/'))
-# DATA_ROOT_DEFAULT = os.path.normpath(os.path.join(ROOT_DIR,'../Datasets/'))
-CHK_ROOT_DEFAULT = os.path.normpath(os.path.join(ROOT_DIR,'../checkpoints'))
-from util import util #from util 
+from util import util 
 import torch
 import GPUtil
 import numpy as np
@@ -47,9 +41,6 @@ class Options():
 
         self.parser.add_argument("--misalign", type=bool, default=False, help="misaligned input data")
 
-        self.parser.add_argument('--loss_sigma_lower_bound', type=float, default=0.0001, help='Sigma lower bound')
-        self.parser.add_argument('--keypoint_outlier_thre', type=float, default=0.3, help='Threshold of distance between cloesest keypoint pairs, large distance is considered to be mis-matched.') #0.03
-
         self.initialized = True
 
     def parse(self):
@@ -58,29 +49,8 @@ class Options():
         self.opt = self.parser.parse_args()
 
         # === processing options === begin ===
-        # determine which GPU to use
-        # auto, throw exception when no GPU is available
-        if self.opt.gpu_ids == 'auto':
-            GPUtil.showUtilization()
-            deviceIDs = GPUtil.getAvailable(order='first', limit=4, maxLoad=0.5, maxMemory=0.5,
-                                            excludeID=[], excludeUUID=[])
-            deviceID_costs = [-1*x for x in deviceIDs]
-            # reorder the deviceID according to the computational capacity, i.e., total memory size
-            # memory size is divided by 1000 without remainder, to avoid small fluctuation
-            gpus = GPUtil.getGPUs()
-            memory_size_costs = [-1*(gpu.memoryTotal//1000) for gpu in gpus if (gpu.load < 0.5 and gpu.memoryUtil < 0.5)]
-            names = [gpu.name for gpu in gpus if (gpu.load < 0.5 and gpu.memoryUtil < 0.5)]
-            sorted_idx = np.lexsort((deviceID_costs, memory_size_costs))
-
-            self.opt.gpu_ids = [deviceIDs[sorted_idx[0]]]
-            print('### selected GPU PCI_ID: %d, Name: %s ###' % (self.opt.gpu_ids[0], names[sorted_idx[0]]))
-        else:
-            # split into integer list, manual or multi-gpu
-            self.opt.gpu_ids = list(map(int, self.opt.gpu_ids.split(',')))
-
+        self.opt.gpu_ids = list(map(int, self.opt.gpu_ids.split(',')))
         self.opt.device = torch.device("cuda:%d" % self.opt.gpu_ids[0] if (torch.cuda.is_available() and len(self.opt.gpu_ids) >= 1) else "cpu")
-        # cuda.select_device(self.opt.gpu_ids[0])
-        # torch.cuda.set_device(self.opt.gpu_ids[0])
 
         # === processing options === end ===
 

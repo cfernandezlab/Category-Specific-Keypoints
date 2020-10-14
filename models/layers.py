@@ -1,7 +1,6 @@
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from torch.autograd import Variable
 from torch.nn.modules.batchnorm import _BatchNorm
 import numpy as np
@@ -57,7 +56,7 @@ class MyBatchNorm1d(_BatchNorm):
                 self.momentum = 0.01
 
 
-        return F.batch_norm(
+        return nn.functional.batch_norm(
             input, self.running_mean, self.running_var, self.weight, self.bias,
             self.training, self.momentum, self.eps)
 
@@ -107,7 +106,7 @@ class MyBatchNorm2d(_BatchNorm):
             if self.momentum < 0.01:
                 self.momentum = 0.01
 
-        return F.batch_norm(
+        return nn.functional.batch_norm(
             input, self.running_mean, self.running_var, self.weight, self.bias,
             self.training, self.momentum, self.eps)
 

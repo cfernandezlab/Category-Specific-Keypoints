@@ -36,18 +36,24 @@ We use the file ``data/create_datasets.py`` to prepare the input data. We refer 
 
 ## Rquirements
 
-``kpts.yml`` contains a copy of the virtual environment with all the dependences and packages needed.
+``environment.yml`` contains a copy of the virtual environment with all the dependences and packages needed.
 In order to reproduce it, simply run: 
 ```
-conda env create -f kpts.yml
+conda env create -f environment.yml --name fernandez2020unsupervised
 ```
 
-Additionally, compile cuda module - index_max:
+Start activating your environment:
+```
+conda activate fernandez2020unsupervised
+```
+
+Then, compile cuda module - index_max:
 ```
 cd models/index_max_ext
-python3 setup.py install
+python setup.py install
 ```
 
+Now you are ready to go!
 
 ## Train
 
@@ -60,13 +66,11 @@ Check ``models/options_detector.py`` for more options.
 
 ## Evaluation
 
-1. Save detected keypoints via ``test.py``
-
 ```bash
 python test.py --dataset 'ShapeNet' --category 'airplane' --ckpt_model 'airplane_10b' --node_num 14 --node_knn_k_1 3 --basis_num 10 --input_pc_num 1600 --surface_normal_len 0
 ```
 
-2. Visualize results via ``viz.py``
+To visualize the results use ``viz.py``
 
 
 ## Evaluate pretrained models
